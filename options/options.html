@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Wiktionarek Options</title>
+    <link rel="stylesheet" href="options.css" />
+    <script src="options.js"></script>
+</head>
+<body>
+    <fieldset>
+        <legend>Control</legend>
+        <div class="row">
+            <label>
+                <input type="checkbox" id="control-dblclick" name="control">
+                <span>Double-click on a word to display pop-up</span>
+            </label>
+        </div>
+
+        <div class="row">
+            <label>
+                <input type="checkbox" id="control-escon" name="control">
+                <span>Press Esc to close pop-up</span>
+            </label>
+        </div>
+
+        <div class="row">
+            <label>
+                <input type="checkbox" id="control-autohide" name="control">
+                <span>Disable pop-up auto-hide (pop-up will stay on even if the user clicks out of it)</span>
+            </label>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Layout</legend>
+
+
+        <div class="column">
+            <label>
+                <input type="radio" name="layout-mode" id="layoutm-0" value="0" checked>
+                <span>Show the marked fields:</span>
+            </label>
+        </div>
+
+        <div class="column">
+            <label>
+                <input type="radio" name="layout-mode" id="layoutm-1" value="1">
+                <span>Hide the marked fields:</span>
+            </label>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <div class="column">
+            <div class="grouping">
+                <label>Miscellaneous</label>
+
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Pronunciation" name="layout-filter">
+                        <span>Pronunciation</span>
+                    </label>
+                </div>
+
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Etymology" name="layout-filter">
+                        <span>Etymology</span>
+                    </label>
+                </div>
+
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Alternative-forms" name="layout-filter">
+                        <span>Alternative forms</span>
+                    </label>
+                </div>
+
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Usage-notes" name="layout-filter">
+                        <span>Usage notes</span>
+                    </label>
+                </div>
+
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Trivia" name="layout-filter">
+                        <span>Trivia</span>
+                    </label>
+                </div>
+
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Anagrams" name="layout-filter">
+                        <span>Anagrams</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="grouping">
+                <label>Morphological</label>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Conjugation" name="layout-filter">
+                        <span>Conjugation</span>
+                    </label>
+                </div>
+
+
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Declension" name="layout-filter">
+                        <span>Declension</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="grouping">
+                <label>Related formations</label>
+                <div class="row">
+
+                    <label>
+                        <input type="checkbox" id="Derived-terms" name="layout-filter">
+                        <span>Derived terms</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Related-terms" name="layout-filter">
+                        <span>Related terms</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Collocations" name="layout-filter">
+                        <span>Collocations</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Descendants" name="layout-filter">
+                        <span>Descendants</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Translations" name="layout-filter">
+                        <span>Translations</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="grouping">
+                <label>References</label>
+
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="See-also" name="layout-filter">
+                        <span>See also</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="References" name="layout-filter">
+                        <span>References</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Further-reading" name="layout-filter">
+                        <span>Further reading</span>
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="grouping">
+                <label>Semantic relations</label>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Synonyms" name="layout-filter">
+                        <span>Synonyms</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Antonyms" name="layout-filter">
+                        <span>Antonyms</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Hypernyms" name="layout-filter">
+                        <span>Hypernyms</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Hyponyms" name="layout-filter">
+                        <span>Hyponyms</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Meronyms" name="layout-filter">
+                        <span>Meronyms</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Holonyms" name="layout-filter">
+                        <span>Holonyms</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Comeronyms" name="layout-filter">
+                        <span>Comeronyms</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Troponyms" name="layout-filter">
+                        <span>Troponyms</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Parasynonyms" name="layout-filter">
+                        <span>Parasynonyms</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Coordinate-term" name="layout-filter">
+                        <span>Coordinate term</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" id="Otherwise-related" name="layout-filter">
+                        <span>Otherwise related</span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+    </fieldset>
+
+
+    <fieldset>
+        <legend>Languages</legend>
+        <div class="column">
+            <label>
+                <input type="radio" name="lang-mode" id="langm-0" value="0" checked>
+                <span>Show these languages:</span>
+            </label>
+        </div>
+
+        <div class="column">
+            <label>
+                <input type="radio" name="lang-mode" id="langm-1" value="1">
+                <span>Hide these languages:</span>
+            </label>
+        </div>
+        <textarea id="language-filter" rows="8" placeholder="Enter languages to be displayed separated by commas"></textarea>
+        <div>
+            <p>See this <a href="https://en.wiktionary.org/wiki/Wiktionary:List-of-languages">list</a> for all languages available on Wiktionary.</p>
+        </div>
+
+    </fieldset>
+    <fieldset>
+        <button id="save-button" type="button">Save</button>
+    </fieldset>
+</body>
+</html> 
