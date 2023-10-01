@@ -1,8 +1,7 @@
 {
   "browser_specific_settings": {
     "gecko": {
-      "id": "addon@example.com",
-      "strict_min_version": "42.0"
+      "strict_min_version": "52.0"
     }
   },
 
@@ -11,12 +10,10 @@
     "default_title": "Wiktionarek"
   },
 
-  "content_security_policy": "script-src 'self' https://example.com; object-src 'self'",
-
   "content_scripts": [
     {
       "matches": [ "*://*/*" ],
-      "js": [ "frame-trimmer.js", "frame-builder.js", "frame-init.js" ],
+      "js": [ "word-processor.js", "frame-trimmer.js", "frame-builder.js", "frame-init.js" ],
       "all_frames":  true
     }
   ],
@@ -28,7 +25,7 @@
   "description": "Look up a word on Wiktionary with your customized layout just by clicking.",
 
   "icons": {
-    "32":  "icons/wiktinarek-32.png",
+    "32":  "icons/wiktionarek-32.png",
     "48": "icons/wiktionarek-48.png",
     "96":  "icons/wiktionarek-96.png"
   },

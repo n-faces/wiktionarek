@@ -2,8 +2,11 @@ let frame;
 let shadow;
 let page;
 
-const noresultClassName = "wiktionary-noresult";
+const notFoundClassName = "wiktionary-search";
+const clippedClassName = "wiktionary-clipped";
 const frameClassName = "wiktionary-frame";
+
+
 const frameHeight = 350;
 const frameWidth = 500;
 const offsetX = 60;
@@ -26,6 +29,7 @@ function createFrame(w, h) {
     frame.style.overflowY = "auto";
     frame.style.borderStyle = "groove";
     frame.style.zIndex = 2147483647 // 2^31 - 1
+    frame.style.direction = "ltr";
     document.body.append(frame);
     shadow = frame.attachShadow({ mode: "open" });
     hide(frame);
@@ -36,6 +40,7 @@ function applyStyle() {
     style.textContent = `
 		:host {
 			all : initial;
+            font-family: Segoe UI;
 		}
 
         section {
@@ -43,10 +48,16 @@ function applyStyle() {
             margin-right: 6px;
         }
 
-        .${noresultClassName} {
+        .${clippedClassName},  {
             text-align: center;
             margin-top: 35%;
             font-weight: bold;
+        }
+
+        .${notFoundClassName} {
+            margin-top: 6px;
+            margin-left: 6px;
+            font-size: 1.2em;
         }
 
         a.new {
@@ -60,6 +71,8 @@ function applyStyle() {
 function onDoubleClick() {
     let word = getSelectedText().trim();
     if (!isValidWord(word)) return;
+    word = preprocessWord(word);
+
     let p = window.getSelection().getRangeAt(0).getBoundingClientRect();
     let isOverflowingX = window.innerWidth - (p.x + offsetX) < frameWidth;
     let fx = isOverflowingX ? p.x - frameWidth : p.x;
@@ -116,31 +129,51 @@ function wordURL(word) {
     return "https://en.wiktionary.org/api/rest_v1/page/html/" + word;
 }
 
-function fetchPage(word) {
-    try {
-        return fetch(wordURL(word), { method: 'GET' })
-            .then(response => {
-                if (!response.ok) {
-                    // get the nearest variant of the word.
-                    let s = word.toLowerCase();
-                    if (s !== word)
-                        return fetchPage(s);
-                }
-                return response.text();
+function searchURL(word) {
+    return `https://en.wiktionary.org/w/api.php?action=opensearch&search=${word}&profile=engine_autoselect`;
+}
 
-            });
-    } catch (e) {
-        console.error(e);
+function fetchPage(word) {
+    return fetch(wordURL(word), { method: 'GET' })
+        .then(res => {
+            if (res.ok)
+                return res.text();
+            else if (res.status === 404)
+                return fetch(searchURL(word), { method: "GET" })
+                    .then(res => res.ok ? res.json() : {});
+            else
+                throw new Error('' + res.status + ': ' + res.statusText);
+        })
+        .catch(e => { console.error(e); });
+}
+
+function updatePage(content) {
+    if (typeof content === "string") {
+        const parser = new DOMParser();
+        page = parser.parseFromString(content, 'text/html').body;
+    } else {
+        page = document.createElement("div");
+        whenNotFound(content[1]);
+        page.skipTrimming = true;
     }
 }
 
-function updatePage(text) {
-    const parser = new DOMParser();
-    page = parser.parseFromString(text, 'text/html').body;
+function whenNotFound(variants) {
+    text = document.createElement("div");
+    text.setAttribute("class", notFoundClassName);
+    text.innerHTML += "<p>Word definition not found, closest variants are:</p>"
+    if (variants.length > 0) {
+        let ul = document.createElement("ul");
+        for (let word of variants)
+            ul.innerHTML += `<li><a href = "./${word}">${word}</a></li>`;
+        text.appendChild(ul);
+    }
+    page.append(text);
 }
 
 
 function trimPage(exceptions) {
+    if (page.skipTrimming) return 0;
     preprocessPage(page);
     return browser.storage.local.get().then(res => {
         let languageList = new RemovalList(res.language.filter);
@@ -152,7 +185,7 @@ function trimPage(exceptions) {
         for (let lang of page.children)
             runRemovalList(classify(lang.children, BLOCKS), layoutList, res.layout.mode);
 
-        if (page.children.length === 0) whenNotFound();
+        if (page.children.length === 0) whenClipped();
     });
 }
 
@@ -160,9 +193,9 @@ function attachPage() {
     while (page.children.length > 0) shadow.append(page.children[0]);
 }
 
-function whenNotFound() {
+function whenClipped() {
     text = document.createElement("div");
-    text.setAttribute("class", "wiktionary-noresult");
+    text.setAttribute("class", clippedClassName);
     text.textContent = "No results found for the selected languages";
     page.append(text);
 }
